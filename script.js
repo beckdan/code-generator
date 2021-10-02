@@ -11,11 +11,11 @@ function writePassword() {
   var passwordText = document.querySelector("#password");
 
   passwordText.value = password;
-
 }
 
 function generatePassword() { 
-  var possibleCars = []
+  var possibleChars = []
+  var finalPassword = ''
   var length = parseInt(prompt('How long would you like your password to be?'))
   console.log(length)
   
@@ -27,6 +27,35 @@ function generatePassword() {
   var shouldContainUpper = confirm('Would you like to include uppercase letters')
   var shouldContainNumbers = confirm('Would you like to include numbers?')
   var shouldContainSymbols = confirm('Would you like to include symbols?')
+
+  if (shouldContainLower === false && 
+      shouldContainUpper === false &&
+      shouldContainNumbers === false &&
+      shouldContainSymbols === false) {
+        return alert('Must select at least one character type')
+      }
+
+  if (shouldContainLower === true) {
+    possibleChars = possibleChars.concat(lowerCaseLetters)
+  }
+  if (shouldContainUpper === true) {
+    possibleChars = possibleChars.concat(upperCaseLetters)
+  }
+  if (shouldContainNumbers) {
+    possibleChars = possibleChars.concat(numbers)
+  }
+  if (shouldContainSymbols) {
+    possibleChars = possibleChars.concat(symbols)
+  }
+
+  console.log(possibleChars)
+
+  for (let i = 0; i < length; i++) {
+    let randomIndex = Math.floor(Math.random() * possibleChars.length) 
+    let temp = possibleChars[randomIndex] 
+    finalPassword += temp
+  }
+  return finalPassword
 // For every true add to possible characters 
 // Randomly select from pot 
 // Return final password 
